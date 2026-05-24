@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Typing Test</title>
+</head>
+<body>
+
+<input id="message" placeholder="Type here..." />
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script>
+
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjEzMzE3YTZmNWQxYzQxNDg2ZGYxMSIsImlhdCI6MTc3NTU1MTQ1NywiZXhwIjoxNzc1NTU1MDU3fQ.CKDXpK8XZg61hxVLVdVllXOetotKAsxTFrXzri098VM";
+
+const socket = io("http://localhost:5000", {
+  auth: { token }
+});
+
+const channelId = "69b1353ba6f5d1c41486df1b";
+
+socket.emit("joinChannel", channelId, (res) => {
+  console.log(res);
+});
+
+const input = document.getElementById("message");
+
+input.addEventListener("input", () => {
+
+  socket.emit("typing", { channelId });
+
+  setTimeout(() => {
+    socket.emit("stopTyping", { channelId });
+  }, 1000);
+
+});
+
+socket.on("userTyping", (data) => {
+  console.log(data.userId + " is typing...");
+});
+
+socket.on("userStopTyping", () => {
+  console.log("User stopped typing");
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket Test</title>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+
+<h2>SyncSpace Live Test</h2>
+
+<input id="channel" placeholder="Channel ID">
+<input id="message" placeholder="Message">
+<button onclick="join()">Join</button>
+<button onclick="send()">Send</button>
+
+<ul id="messages"></ul>
+
+<script>
+ const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjEzMzE3YTZmNWQxYzQxNDg2ZGYxMSIsImlhdCI6MTc3NTU1MTQ1NywiZXhwIjoxNzc1NTU1MDU3fQ.CKDXpK8XZg61hxVLVdVllXOetotKAsxTFrXzri098VM";
+
+const socket = io("http://localhost:5000", {
+  auth: {
+    token: token
+  }
+});
+
+socket.on("connect", () => {
+  console.log("Socket connected:", socket.id);
+});
+
+socket.on("connect_error", (err) => {
+  console.log("Connection error:", err.message);
+});
+
+ 
+
+function join() {
+  const channel = document.getElementById("channel").value.trim();
+
+  socket.emit("joinChannel", channel, (response) => {
+
+    if (response.success) {
+      console.log("Joined channel:", channel);
+    } else {
+      console.log("Join failed:", response.message);
+    }
+
+  });
+}
+
+  function send() {
+    const channel = document.getElementById("channel").value;
+    const message = document.getElementById("message").value;
+
+    socket.emit("sendMessage", {
+      channelId: channel,
+      content: message
+    });
+
+    console.log("Message sent:", message);
+  }
+
+  socket.on("receiveMessage", (data) => {
+    console.log("Message received:", data);
+
+    const li = document.createElement("li");
+    li.innerText = data.content;
+
+    document.getElementById("messages").appendChild(li);
+  })
+</script>
+
+</body>
+</html>

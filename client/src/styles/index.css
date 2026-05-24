@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── LIGHT MODE (default) ────────────────────────────────────── */
+:root {
+  --bg-primary:   #f1f5f9;
+  --bg-secondary: #e2e8f0;
+  --bg-card:      #ffffff;
+  --bg-hover:     #cbd5e1;
+  --bg-input:     #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted:   #94a3b8;
+  --border-color: #cbd5e1;
+  --msg-other:    #e2e8f0;
+  --msg-me:       #3b82f6;
+  --sidebar-bg:   #e2e8f0;
+  --panel-bg:     #f1f5f9;
+}
+
+/* ── DARK MODE ───────────────────────────────────────────────── */
+html.dark {
+  --bg-primary:   #020617;
+  --bg-secondary: #0f172a;
+  --bg-card:      #1e293b;
+  --bg-hover:     #334155;
+  --bg-input:     #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted:   #64748b;
+  --border-color: #1e293b;
+  --msg-other:    #1e293b;
+  --msg-me:       #2563eb;
+  --sidebar-bg:   #0f172a;
+  --panel-bg:     #0f172a;
+}
+
+/* Apply variables to body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 99px; }
+html:not(.dark) ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+
+/* App container */
+.app-bg      { background-color: var(--bg-primary); }
+.panel-bg    { background-color: var(--bg-secondary); }
+.card-bg     { background-color: var(--bg-card); }
+.hover-bg:hover { background-color: var(--bg-hover); }
+.input-bg    { background-color: var(--bg-input); }
+.app-text    { color: var(--text-primary); }
+.muted-text  { color: var(--text-muted); }
+.app-border  { border-color: var(--border-color); }
