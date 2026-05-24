@@ -14,9 +14,13 @@ SyncSpace is a full-stack real-time chat application built with React, Node.js, 
 
 ## Screenshots
 
-> Add screenshots here after deployment
+### Signup Page
 
----
+![Signup Page](./screenshots/Signup.png)
+
+### Chat Page
+
+![Chat Page](./screenshots/Chat.png)
 
 ## Features
 
